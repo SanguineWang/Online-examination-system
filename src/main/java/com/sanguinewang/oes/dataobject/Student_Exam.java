@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * @Description
+ * @Description 学生考试记录，包括成绩
  * @Author SanguineWang
  * @Date 2020-07-03 15:10
  */
@@ -19,20 +19,19 @@ public class Student_Exam {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    //学生
     @ManyToOne
     @ToString.Exclude
     private Student student;
-
+    //考试
     @ManyToOne
     @ToString.Exclude
     private Exam exam;
 
-    
 
-    private Float choiceGrade;
+    //主观题答案，系统自动加和，选择判断的分数（系统判）
+    private Float objectiveGrade;
+    //简答题答案，系统自动加和，主观题成绩（老师判）
     private Float subjectiveGrade;
-
-
 
 }

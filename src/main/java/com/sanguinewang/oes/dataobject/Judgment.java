@@ -9,37 +9,28 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
- * @Description 选择题
+ * @Description 判断题
  * @Author SanguineWang
- * @Date 2020-07-03 14:16
+ * @Date 2020-07-03 16:23
  */
 @Data
 @Entity
 @NoArgsConstructor
-public class Choice {
+public class Judgment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    //题目
+//题目
     private String title;
-
-    //选项
-    private String option_A;
-    private String option_B;
-    private String option_C;
-    private String option_D;
 
     /**
      * 答案
-     * A:1
-     * B:2
-     * C:4
-     * D:8
+     * 对：0
+     * 错：1
      */
     private Integer answer;
-    //分数，老师新建exam的时候设置题目的分数。
+    //分数
     private Float score;
-
     /**
      * 自动插入时间
      */

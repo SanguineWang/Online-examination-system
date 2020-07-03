@@ -27,9 +27,20 @@ public class Student {
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @MapsId
     private User user;
-
-    @OneToMany(mappedBy = "student",cascade = CascadeType.REMOVE)
+    //一个学生对应多个考试
+    @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE)
     private List<Student_Exam> studentExams;
+
+    //个人答选择题记录
+    @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE)
+    private List<Student_Choice> student_choiceList;
+    //个人判断题记录
+    @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE)
+    private List<Student_Judgment> student_judgmentList;
+    //个人主观题记录
+    @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE)
+    private List<Student_Subjective> student_subjectiveList;
+
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(columnDefinition = "timestamp default current_timestamp",
@@ -42,10 +53,4 @@ public class Student {
             insertable = false,
             updatable = false)
     private LocalDateTime updateTime;
-
-    @OneToMany(mappedBy = "student",cascade = CascadeType.REMOVE)
-    private List<Student_Choice> student_choiceList;
-
-    @OneToMany(mappedBy = "student",cascade = CascadeType.REMOVE)
-    private List<Student_Subjective> student_subjectiveList;
 }

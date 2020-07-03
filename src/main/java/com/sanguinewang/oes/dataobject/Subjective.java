@@ -20,10 +20,12 @@ public class Subjective {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    //题目
     private String title;
-
+    //答案
     private String answer;
+    //分数
+    private Float score;
     /**
      * 自动插入时间
      */
@@ -34,7 +36,7 @@ public class Subjective {
     private LocalDateTime insertTime;
 
     /**
-     * 与Paper多对一关系
+     * 题目与考试多对一关系
      */
     @ManyToOne
     @ToString.Exclude

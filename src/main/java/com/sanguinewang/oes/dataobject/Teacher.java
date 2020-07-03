@@ -33,6 +33,14 @@ public class Teacher {
     @MapsId
     private User user;
 
+
+    /**
+     * 老师的考试，一个老师多个考试
+     */
+    @ToString.Exclude
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "teacher",cascade = CascadeType.REMOVE)
+    private List<Exam> examList;
     /**
      * 自动插入时间
      */
@@ -42,8 +50,4 @@ public class Teacher {
             updatable = false)
     private LocalDateTime insertTime;
 
-    @ToString.Exclude
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany(mappedBy = "teacher",cascade = CascadeType.REMOVE)
-    private List<Exam> examList;
 }
