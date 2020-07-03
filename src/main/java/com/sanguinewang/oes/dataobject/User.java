@@ -3,6 +3,7 @@ package com.sanguinewang.oes.dataobject;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sanguinewang.oes.enums.RoleEnums;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Entity
+@NoArgsConstructor
 public class User {
 
     /**

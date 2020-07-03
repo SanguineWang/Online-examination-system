@@ -3,33 +3,40 @@ package com.sanguinewang.oes.dataobject;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
- * Description: oes
- * Created by Rice on 2020/7/3 10:43
+ * @Description
+ * @Author SanguineWang
+ * @Date 2020-07-03 14:16
  */
 @Data
 @Entity
 @NoArgsConstructor
-public class Administrator {
-    /**
-     * 管理员数据库内部id  关联来自user表的id
-     */
+public class Choice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer id;
 
-    /**
-     * 级联User表
-     */
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    @MapsId
-    private User user;
+    private String title;
 
+    //选项
+    private String option_A;
+    private String option_B;
+    private String option_C;
+    private String option_D;
+
+    /**
+     * 答案
+     * A:1
+     * B:2
+     * C:4
+     * D:8
+     */
+    private Integer answer;
 
     /**
      * 自动插入时间
@@ -41,11 +48,9 @@ public class Administrator {
     private LocalDateTime insertTime;
 
     /**
-     * 自动修改时间
+     * 与Paper多对一关系
      */
-    @Column(columnDefinition = "timestamp default current_timestamp " +
-            "on update current_timestamp",
-            insertable = false,
-            updatable = false)
-    private LocalDateTime updateTime;
+    @ManyToOne
+    @ToString.Exclude
+    private Exam exam;
 }

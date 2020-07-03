@@ -1,7 +1,10 @@
 package com.sanguinewang.oes.dataobject;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,6 +16,7 @@ import java.util.List;
  */
 @Data
 @Entity
+@NoArgsConstructor
 public class Teacher {
     /**
      * 教师数据库内部id  关联来自user表的id
@@ -38,4 +42,8 @@ public class Teacher {
             updatable = false)
     private LocalDateTime insertTime;
 
+    @ToString.Exclude
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "teacher",cascade = CascadeType.REMOVE)
+    private List<Exam> examList;
 }
