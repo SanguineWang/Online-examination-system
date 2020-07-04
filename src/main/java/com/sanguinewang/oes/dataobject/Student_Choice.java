@@ -25,7 +25,6 @@ public class Student_Choice {
     @ManyToOne
     private Choice choice;
 
-
     //学生的答案
     private Integer answer;
 
