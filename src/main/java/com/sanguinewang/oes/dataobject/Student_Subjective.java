@@ -17,11 +17,9 @@ public class Student_Subjective {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     //  学生
     @ManyToOne
     private Student student;
-
     // 主观题
     @ManyToOne
     private Subjective subjective;
