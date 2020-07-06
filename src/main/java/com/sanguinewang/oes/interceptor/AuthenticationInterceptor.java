@@ -7,10 +7,16 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.sanguinewang.oes.annotation.PassToken;
 import com.sanguinewang.oes.annotation.UserLoginToken;
+import com.sanguinewang.oes.component.MyToken;
 import com.sanguinewang.oes.dataobject.User;
+import com.sanguinewang.oes.enums.RoleEnums;
 import com.sanguinewang.oes.services.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,6 +29,8 @@ import java.lang.reflect.Method;
  * Created by Rice on 2020/7/6 10:12
  * 获取token并验证token
  */
+@Component
+@Slf4j
 public class AuthenticationInterceptor implements HandlerInterceptor {
     @Autowired
     UserService userService;
@@ -49,18 +57,22 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             if (userLoginToken.required()) {
                 // 执行认证
                 if (token == null) {
-                    throw new RuntimeException("无token，请重新登录");
+                    throw new ResponseStatusException(HttpStatus.FORBIDDEN, "无token，请重新登录");
                 }
                 // 获取 token 中的 user id
                 String userId;
+                String userRole;
                 try {
                     userId = JWT.decode(token).getAudience().get(0);
+                    userRole = JWT.decode(token).getAudience().get(1);
+                    log.info("{}", userId);
+                    log.info("{}", userRole);
                 } catch (JWTDecodeException j) {
                     throw new RuntimeException("401");
                 }
                 User user = userService.findUserById(Integer.valueOf(userId));
                 if (user == null) {
-                    throw new RuntimeException("用户不存在，请重新登录");
+                    throw new ResponseStatusException(HttpStatus.FORBIDDEN, "用户不存在，请重新登录");
                 }
                 // 验证 token
                 JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(user.getPassword())).build();
@@ -69,6 +81,9 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 } catch (JWTVerificationException e) {
                     throw new RuntimeException("401");
                 }
+                //如果通过token鉴权 在request中加入 uid 以及 role
+                httpServletRequest.setAttribute(MyToken.UID, Integer.valueOf(userId));
+                httpServletRequest.setAttribute(MyToken.ROLE, RoleEnums.valueOf(userRole));
                 return true;
             }
         }

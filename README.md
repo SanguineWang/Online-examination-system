@@ -30,13 +30,19 @@ author: tan
     - 用来跳过验证的PassToken
     - 需要登录才能进行操作的注解UserLoginToken
     - 无注释时 默认跳过验证
-* LoginController 编写
-    - 登录并通过jwt验证后，返回token及role信息，role以隐藏形式返回，token同时在header内携带
-* TokenService 编写：token的生成方法
-* UserService 编写
-    - User findByUsername(User user)
-    - User findUserById(User user)
-    
+* Controller 编写
+    - `LoginController`：登录并通过jwt验证后，返回token及role信息，role以隐藏形式返回，token同时在header内携带
+* Service 编写
+    -  `TokenService` 编写：token的生成方法
+    -  `UserService` 编写
+        - User findByUsername(User user)
+        - User findUserById(User user)
+* interceptpor 编写
+    - `AuthenticationInterceptor`：jwt鉴权
+    - `Admin`,`Student`,`Teahcer`:各角色权限拦截器
+* Component 编写
+    - `InitComponent`:初始化用户（1001,2007）
+    - `RequestComponent` ：获取线程级的attribute，将提取Attribute的过程提取出来,减少耦合
 ### 2020-07-06
 author: yang
 * 添加devtools，热部署组件 

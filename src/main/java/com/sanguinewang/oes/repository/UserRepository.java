@@ -5,10 +5,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+
 @Repository
 public interface UserRepository extends BaseReporsitory<User, Integer> {
 
     @Query("from User u where u.name = :name")
     Optional<User> findByName(String name);
 
+    @Query("from User u where u.number=:number")
+    Optional<User> findByNumber(int number);
 }

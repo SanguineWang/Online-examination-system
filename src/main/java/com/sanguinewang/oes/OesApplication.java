@@ -8,10 +8,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableJpaRepositories(repositoryBaseClass = BaseReporsitoryImpl.class)
 //@EnableCaching
+@EnableSwagger2
 public class OesApplication {
 
     public static void main(String[] args) {
