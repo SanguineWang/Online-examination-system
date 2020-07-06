@@ -44,6 +44,7 @@ author: yang
 * 添加jackson-datatype-hibernate5，反序列化组件
 * 持久层接口
 * 集成redis（lettuce）
+    - 部署在 114.115.181.66:8080端口
 
 ### 2020-07-06
 author: tan
