@@ -43,6 +43,7 @@ author: yang
 * 添加spring-security-crypto，加密组件
 * 添加jackson-datatype-hibernate5，反序列化组件
 * 持久层接口
+    - 继承自定义的BaseRepository接口，实现了EntityManager的refresh操作。
 * 集成redis（lettuce）
     - 部署在 114.115.181.66:8080端口
 
