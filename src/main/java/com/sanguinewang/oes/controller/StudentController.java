@@ -19,7 +19,7 @@ import java.util.Map;
 public class StudentController {
 
     @ApiOperation("查询自己的老师")
-    @GetMapping("/teacher")
+    @GetMapping("teacher")
     public Map<String, String> getExam() {
         return Map.of("Exam", "Test-String");
     }

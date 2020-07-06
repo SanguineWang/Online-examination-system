@@ -1,6 +1,7 @@
 package com.sanguinewang.oes.controller;
 
 import com.sanguinewang.oes.dataobject.User;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,6 +28,7 @@ public class LoginController {
     private PasswordEncoder passwordEncoder;
 
 
+    @ApiOperation("登录")
     @PostMapping("login")
     public Map login(@RequestBody User login, HttpServletResponse response) {
         return Map.of();

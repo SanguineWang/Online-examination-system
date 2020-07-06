@@ -13,7 +13,7 @@
     * 热部署： devtools
     * 日志： lombok
     * 测试： junit
-
+    * 缓存： redis
 ### Deployment environment
 * Server
     * 待定
@@ -27,7 +27,9 @@
 * 添加devtools，热部署组件 
 * 添加spring-security-crypto，加密组件
 * 添加jackson-datatype-hibernate5，反序列化组件
-* 持久层开发
+* 持久层接口
+* 集成redis（lettuce）
+
 ### 2020-07-06
 * 配置swagger2接口工具，测试controller层运行状况
 
