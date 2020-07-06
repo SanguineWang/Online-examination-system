@@ -13,6 +13,7 @@
     * 热部署： devtools
     * 日志： lombok
     * 测试： junit
+    * 鉴权： java-jwt 3.4
     * 缓存： redis
 ### Deployment environment
 * Server
@@ -23,7 +24,21 @@
     * Docker :penguin:
 ### :bookmark_tabs: Change Log 
     
+### 2020-07-06 
+author: tan
+* 集成JWT实现token验证，定义`@PassToken`以及`@UserLoginToken`注解。
+    - 用来跳过验证的PassToken
+    - 需要登录才能进行操作的注解UserLoginToken
+    - 无注释时 默认跳过验证
+* LoginController 编写
+    - 登录并通过jwt验证后，返回token及role信息，role以隐藏形式返回，token同时在header内携带
+* TokenService 编写：token的生成方法
+* UserService 编写
+    - User findByUsername(User user)
+    - User findUserById(User user)
+    
 ### 2020-07-06
+author: yang
 * 添加devtools，热部署组件 
 * 添加spring-security-crypto，加密组件
 * 添加jackson-datatype-hibernate5，反序列化组件
@@ -31,10 +46,13 @@
 * 集成redis（lettuce）
 
 ### 2020-07-06
+author: tan
 * 配置swagger2接口工具，测试controller层运行状况
 
 ### 2020-07-03
+author: yang
 * 实体类设计
 
 ### 2020-07-03
+author: yang
 * 项目初始化

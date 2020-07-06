@@ -34,9 +34,9 @@ public class SwaggerConfig {
                 .enable(access)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.sanguinewang.oes.controller"))
-                .build();
-//                .securitySchemes(securitySchemes())
-//                .securityContexts(securityContexts());
+                .build()
+                .securitySchemes(securitySchemes())
+                .securityContexts(securityContexts());
     }
 
 
