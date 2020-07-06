@@ -2,6 +2,7 @@ package com.sanguinewang.oes.services;
 
 import com.sanguinewang.oes.dataobject.User;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,7 +22,9 @@ class UserServiceTest {
         User user = new User();
         user.setName("string");
         User byUsername = userService.findByUsername(user);
+        Assertions.assertNotNull(byUsername);
         log.info("{}", byUsername.getName());
+
     }
 
     @Test
@@ -29,6 +32,7 @@ class UserServiceTest {
         User user = new User();
         user.setId(1);
         User userById = userService.findUserById(1);
+        Assertions.assertNotNull(userById);
         log.info("{}", userById.getId());
     }
 }
