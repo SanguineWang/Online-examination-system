@@ -11,11 +11,13 @@ import com.sanguinewang.oes.services.UserService;
 import com.sanguinewang.oes.util.ResultVOUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +27,7 @@ import java.util.Optional;
 
 /**
  * @Description
- * @Author SanguineWang
+ * @Author SanguineWang Rice
  * @Date 2020-07-06 9:17
  */
 @RestController
@@ -39,6 +41,11 @@ public class LoginController {
     private String roleStudent;
     @Value("${my.admin}")
     private String roleAdmin;
+
+    private String errorLoginMsg = "账号或密码错误";
+    private String nullLoginMsg = "账号或密码不能为空";
+    private String successLoginMsg = "登录成功";
+    private String severErrorMsg = "服务器或网络出现异常";
 
     @Autowired
     RequestComponent requestComponent;
@@ -55,7 +62,7 @@ public class LoginController {
     public ResultVO login(@RequestBody User user, HttpServletResponse response) {
         User userFromDB = Optional.ofNullable(userService.findUserbyNumber(user.getNumber()))
                 .filter(user1 -> encoder.matches(user.getPassword(), user1.getPassword()))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "账号或密码错误"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, errorLoginMsg));
 
         String token = tokenService.getToken(userFromDB);
         response.setHeader(MyToken.AUTHORIZATION, token);
@@ -71,7 +78,29 @@ public class LoginController {
             ResultVOUtil.error(HttpStatus.UNAUTHORIZED, "该角色没有处理");
         }
         return ResultVOUtil.success(Map.of("token", token, "role", roleVO),
-                "登陆成功");
+                successLoginMsg);
+
+    }
+
+
+    @ApiOperation("重置密码,传入新的密码")
+    @UserLoginToken
+    @PostMapping("password")
+    public void resetPwd(@RequestBody User reset_user) {
+        if (reset_user.getPassword().length() == 0) {
+            ResultVOUtil.error(HttpStatus.BAD_REQUEST, nullLoginMsg);
+        }
+        //通过用户的number找到指定用户
+        User userFromDB = Optional.ofNullable(userService.findUserbyNumber(reset_user.getNumber()))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, errorLoginMsg));
+        try {
+            //对读入的新密码进行编码并放入
+            String newPassword = encoder.encode(reset_user.getPassword());
+            userFromDB.setPassword(newPassword);
+            userService.save(userFromDB);
+        } catch (Exception e) {
+            ResultVOUtil.error(HttpStatus.SERVICE_UNAVAILABLE, severErrorMsg);
+        }
 
     }
 
@@ -81,7 +110,7 @@ public class LoginController {
     public ResultVO getMessage(HttpServletRequest request) {
         return ResultVOUtil.success(
                 Map.of("role", requestComponent.getRole(), "uid", requestComponent.getUid())
-                , "登录成功");
+                , successLoginMsg);
 
     }
 }

@@ -27,10 +27,16 @@
 author: wang
 * Controller接口设计
     - `TeacherController`
-    - `StudentController`   
+    - `StudentController`  
+     
 author: chang
 * Controller接口设计
-    - `AdminController`    
+    - `AdminController`
+
+author: tan
+* LoginController
+    - 新增修改密码
+            
 ### 2020-07-06 
 author: tan
 * 集成JWT实现token验证，定义`@PassToken`以及`@UserLoginToken`注解。
