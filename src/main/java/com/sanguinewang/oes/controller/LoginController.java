@@ -21,6 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @Description
@@ -52,32 +53,26 @@ public class LoginController {
     @ApiOperation("登录，无需token鉴权")
     @PostMapping("login")
     public ResultVO login(@RequestBody User user, HttpServletResponse response) {
-        if (user == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "用户名或密码错误");
-        if (user.getPassword() == null || user.getNumber() == null)
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "用户名或密码不能为空");
+        User userFromDB = Optional.ofNullable(userService.findUserbyNumber(user.getNumber()))
+                .filter(user1 -> encoder.matches(user.getPassword(), user1.getPassword()))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "账号或密码错误"));
 
-        User userFromDB = userService.findUserbyNumber(user.getNumber());
-
-        if (userFromDB == null) {
-            return ResultVOUtil.error("登录失败,用户不存在");
-        } else {
-            if (!encoder.matches(user.getPassword(), userFromDB.getPassword())) {
-                return ResultVOUtil.error("登录失败,密码错误");
-            } else {
-
-                String token = tokenService.getToken(userFromDB);
-                response.setHeader(MyToken.AUTHORIZATION, token);
-                String roleVO = "";
-                if (userFromDB.getRole() == RoleEnums.ADMINISTRATOR)
-                    roleVO = roleAdmin;
-                else if (userFromDB.getRole() == RoleEnums.STUDENT)
-                    roleVO = roleStudent;
-                else if (userFromDB.getRole() == RoleEnums.TEACHER)
-                    roleVO = roleTeacher;
-                if (roleVO.length() == 0) throw new RuntimeException("角色确认失败");
-                return ResultVOUtil.success(Map.of("token", token, "role", roleVO));
-            }
+        String token = tokenService.getToken(userFromDB);
+        response.setHeader(MyToken.AUTHORIZATION, token);
+        String roleVO = "";
+        RoleEnums role = userFromDB.getRole();
+        if (role == RoleEnums.ADMINISTRATOR)
+            roleVO = roleAdmin;
+        else if (role == RoleEnums.STUDENT)
+            roleVO = roleStudent;
+        else if (role == RoleEnums.TEACHER)
+            roleVO = roleTeacher;
+        if (roleVO.length() == 0) {
+            ResultVOUtil.error(HttpStatus.UNAUTHORIZED, "该角色没有处理");
         }
+        return ResultVOUtil.success(Map.of("token", token, "role", roleVO),
+                "登陆成功");
+
     }
 
     @ApiOperation("用于测试是否登录成功")
@@ -85,8 +80,8 @@ public class LoginController {
     @GetMapping("loginTest")
     public ResultVO getMessage(HttpServletRequest request) {
         return ResultVOUtil.success(
-                Map.of("massage", "登录成功", "role", requestComponent.getRole(), "uid", requestComponent.getUid())
-        );
+                Map.of("role", requestComponent.getRole(), "uid", requestComponent.getUid())
+                , "登录成功");
 
     }
 }

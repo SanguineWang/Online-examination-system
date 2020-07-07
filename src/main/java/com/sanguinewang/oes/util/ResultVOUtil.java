@@ -2,6 +2,8 @@ package com.sanguinewang.oes.util;
 
 
 import com.sanguinewang.oes.VO.ResultVO;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  * Created by Rice
@@ -10,21 +12,19 @@ import com.sanguinewang.oes.VO.ResultVO;
  */
 public class ResultVOUtil {
 
-    public static ResultVO success(Object object) {
+    public static ResultVO success(Object object,String msg) {
         ResultVO resultVO = new ResultVO();
         resultVO.setData(object);
-        resultVO.setMsg("success");
+        resultVO.setMsg(msg);
         return resultVO;
     }
 
     public static ResultVO success() {
-        return success(null);
+        return success(null,"success");
     }
 
 
-    public static ResultVO error(String msg) {
-        ResultVO resultVO = new ResultVO();
-        resultVO.setMsg(msg);
-        return resultVO;
+    public static void error( HttpStatus status,String msg) {
+        throw new ResponseStatusException(status,msg);
     }
 }
