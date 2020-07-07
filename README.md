@@ -45,13 +45,13 @@ author: tan
     - `RequestComponent` ：获取线程级的attribute，将提取Attribute的过程提取出来,减少耦合
 ### 2020-07-06
 author: yang
-* 添加devtools，热部署组件 
-* 添加spring-security-crypto，加密组件
-* 添加jackson-datatype-hibernate5，反序列化组件
+* 添加`devtools`，热部署组件 
+* 添加`spring-security-crypto`，加密组件
+* 添加`jackson-datatype-hibernate5`，反序列化组件
 * 持久层接口
-    - 继承自定义的BaseRepository接口，实现了EntityManager的refresh操作。
+    - 继承自定义的`BaseRepository`接口，实现了`EntityManager`的`refresh`操作。
 * 集成redis（lettuce）
-    - 部署在 114.115.181.66:8080端口
+    - 部署在 `114.115.181.66:8080`端口
 
 ### 2020-07-06
 author: tan

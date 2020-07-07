@@ -1,5 +1,6 @@
 package com.sanguinewang.oes.dataobject;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -26,6 +27,7 @@ public class Student_Exam {
     //考试
     @ManyToOne
     @ToString.Exclude
+    @JsonProperty()
     private Exam exam;
 
 

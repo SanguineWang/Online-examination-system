@@ -2,27 +2,38 @@ package com.sanguinewang.oes.services;
 
 import com.sanguinewang.oes.dataobject.Administrator;
 import com.sanguinewang.oes.dataobject.Student;
+import com.sanguinewang.oes.dataobject.Teacher;
 import com.sanguinewang.oes.dataobject.User;
 import com.sanguinewang.oes.repository.AdministratorRepository;
 import com.sanguinewang.oes.repository.StudentRepository;
+import com.sanguinewang.oes.repository.TeacherRepository;
 import com.sanguinewang.oes.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Description: oes
  * Created by Rice on 2020/7/6 10:13
  */
 @Service("UserService")
+@Transactional
+@Slf4j
 public class UserService {
 
     private final UserRepository userRepository;
     private final AdministratorRepository administratorRepository;
     private final StudentRepository studentRepository;
+    private final TeacherRepository teacherRepository;
 
-    public UserService(UserRepository userRepository, AdministratorRepository administratorRepository, StudentRepository studentRepository) {
+    public UserService(UserRepository userRepository,
+                       AdministratorRepository administratorRepository,
+                       StudentRepository studentRepository,
+                       TeacherRepository teacherRepository) {
         this.userRepository = userRepository;
         this.administratorRepository = administratorRepository;
         this.studentRepository = studentRepository;
+        this.teacherRepository = teacherRepository;
     }
 
     public User findByUsername(User user) {
@@ -51,5 +62,9 @@ public class UserService {
 //     userRepository.save(u);
 //     t.setUser(u);
         studentRepository.save(student);
+    }
+
+    public void addTeacher(Teacher teacher) {
+        teacherRepository.save(teacher);
     }
 }
