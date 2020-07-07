@@ -1,6 +1,7 @@
 package com.sanguinewang.oes.controller;
 
 import com.sanguinewang.oes.VO.ResultVO;
+import com.sanguinewang.oes.component.RequestComponent;
 import com.sanguinewang.oes.dataobject.Exam;
 import com.sanguinewang.oes.dataobject.Student_Exam;
 import com.sanguinewang.oes.dataobject.Subjective;
@@ -22,6 +23,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("api/teacher/")
 public class TeacherController {
+
+    @Autowired
+    private RequestComponent requestComponent;
 
 
     @ApiOperation("查询个人信息")
@@ -51,7 +55,7 @@ public class TeacherController {
                 , "获取考试列表成功");
     }
 
-    @ApiOperation("添加考试")
+    @ApiOperation("添加考试,")
     @PostMapping("exam")
     public ResultVO addExam(@RequestBody Exam exam) {
 
@@ -98,12 +102,20 @@ public class TeacherController {
                 , "获取考试详细信息成功");
     }
 
-    @ApiOperation("批卷")
+    @ApiOperation("批卷,更新指定学生的主观题评分，批卷之后加和客观题成绩")
     @PatchMapping("exam/{eid}/student/{tid}")
-    public ResultVO markingExaminationPaper(@PathVariable Integer eid, @PathVariable Integer tid) {
+    public ResultVO updateStudentsSubjective(@PathVariable Integer eid, @PathVariable Integer tid,@RequestBody List<Subjective> subjectiveList) {
 
+      return ResultVOUtil.success(
+                Map.of("student_exam", List.of(new Student_Exam()))
+                , "获取信息成功");
+    }
+
+    @ApiOperation("成绩统计,返回考试的所有学生-考试信息")
+    @GetMapping("exam/{eid}/grade")
+    public ResultVO getStudentExamList(@PathVariable Integer eid) {
         return ResultVOUtil.success(
-                Map.of("subjectiveList", List.of(new Subjective()))
-                , "批卷成功");
+                Map.of("student_exam", List.of(new Student_Exam()))
+                , "获取信息成功");
     }
 }

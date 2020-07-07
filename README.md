@@ -23,7 +23,14 @@
 * Software
     * Docker :penguin:
 ### :bookmark_tabs: Change Log 
-    
+### 2020-07-07 
+author: wang
+* Controller接口设计
+    - `TeacherController`
+    - `StudentController`   
+author: chang
+* Controller接口设计
+    - `AdminController`    
 ### 2020-07-06 
 author: tan
 * 集成JWT实现token验证，定义`@PassToken`以及`@UserLoginToken`注解。
@@ -43,8 +50,8 @@ author: tan
 * Component 编写
     - `InitComponent`:初始化用户（1001,2007）
     - `RequestComponent` ：获取线程级的attribute，将提取Attribute的过程提取出来,减少耦合
-### 2020-07-06
-author: yang
+
+author: wang
 * 添加`devtools`，热部署组件 
 * 添加`spring-security-crypto`，加密组件
 * 添加`jackson-datatype-hibernate5`，反序列化组件
@@ -53,14 +60,10 @@ author: yang
 * 集成redis（lettuce）
     - 部署在 `114.115.181.66:8080`端口
 
-### 2020-07-06
-author: tan
-* 配置swagger2接口工具，测试controller层运行状况
-
 ### 2020-07-03
-author: yang
+author: wang
 * 实体类设计
 
 ### 2020-07-03
-author: yang
+author: wang
 * 项目初始化
