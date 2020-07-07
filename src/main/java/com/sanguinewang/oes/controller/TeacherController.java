@@ -3,6 +3,7 @@ package com.sanguinewang.oes.controller;
 import com.sanguinewang.oes.VO.ResultVO;
 import com.sanguinewang.oes.dataobject.Exam;
 import com.sanguinewang.oes.dataobject.Student_Exam;
+import com.sanguinewang.oes.dataobject.Subjective;
 import com.sanguinewang.oes.dataobject.User;
 import com.sanguinewang.oes.util.ResultVOUtil;
 import io.swagger.annotations.ApiOperation;
@@ -34,51 +35,75 @@ public class TeacherController {
 
     @ApiOperation("修改个人信息")
     @PatchMapping("myInfo")
-    public Map updateUser() {
+    public ResultVO updateUser() {
+        return ResultVOUtil.success(
+                Map.of("myInfo", new User())
+                , "修改个人信息成功");
 
-        return Map.of("myInfo", new User());
     }
 
     @ApiOperation("查看考试列表")
     @GetMapping("exam")
-    public Map getExamList() {
-        List<Exam> examList = null;
-        return Map.of("exam_list", List.of(new Exam()));
+    public ResultVO getExamList() {
+
+        return ResultVOUtil.success(
+                Map.of("examList", List.of(new Exam()))
+                , "获取考试列表成功");
     }
 
     @ApiOperation("添加考试")
     @PostMapping("exam")
-    public Map addExam(@RequestBody Exam exam) {
-        return Map.of("exam_list", List.of(new Exam()));
+    public ResultVO addExam(@RequestBody Exam exam) {
+
+        return ResultVOUtil.success(
+                Map.of("examList", List.of(new Exam()))
+                , "添加考试成功");
     }
 
     @ApiOperation("删除考试")
     @DeleteMapping("exam/{eid}")
-    public Map removeExam(@PathVariable Integer eid) {
+    public ResultVO removeExam(@PathVariable Integer eid) {
 
-        return Map.of("exam_list", List.of(new Exam()));
+        return ResultVOUtil.success(
+                Map.of("examList", List.of(new Exam()))
+                , "删除考试成功");
     }
 
     @ApiOperation("修改考试信息")
     @PatchMapping("exam/{eid}")
-    public Map updateExam(@PathVariable Integer eid, @RequestBody Exam exam) {
+    public ResultVO updateExam(@PathVariable Integer eid, @RequestBody Exam exam) {
+        return ResultVOUtil.success(
+                Map.of("exam", List.of(new Exam()))
+                , "修改考试信息");
 
-        return Map.of("exam", new Exam());
     }
 
     @ApiOperation("查看考试详细信息")
     @GetMapping("exam/{eid}")
-    public Map getExam(@PathVariable Integer eid) {
+    public ResultVO getExam(@PathVariable Integer eid) {
 
-        return Map.of("exam", new Exam());
+        return ResultVOUtil.success(
+                Map.of("exam", new Exam())
+                , "获取考试详细信息成功");
+
     }
 
 
-    @ApiOperation("查看指定考试的学生主观题试卷")
-    @GetMapping("exam/{eid}/student/")
-    public Map getStudentExam(@PathVariable Integer eid) {
+    @ApiOperation("查看指定考试的指定学生的主观题试卷")
+    @GetMapping("exam/{eid}/student/{tid}")
+    public ResultVO getStudentExam(@PathVariable Integer eid, @PathVariable Integer tid) {
 
-        return Map.of("exam", new Exam());
+        return ResultVOUtil.success(
+                Map.of("subjectiveList", List.of(new Subjective()))
+                , "获取考试详细信息成功");
     }
 
+    @ApiOperation("批卷")
+    @PatchMapping("exam/{eid}/student/{tid}")
+    public ResultVO markingExaminationPaper(@PathVariable Integer eid, @PathVariable Integer tid) {
+
+        return ResultVOUtil.success(
+                Map.of("subjectiveList", List.of(new Subjective()))
+                , "批卷成功");
+    }
 }
