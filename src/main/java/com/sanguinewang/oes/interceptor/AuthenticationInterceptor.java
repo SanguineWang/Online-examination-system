@@ -79,7 +79,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 try {
                     jwtVerifier.verify(token);
                 } catch (JWTVerificationException e) {
-                    throw new RuntimeException("401");
+                    throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"token失效或过期");
                 }
                 //如果通过token鉴权 在request中加入 uid 以及 role
                 httpServletRequest.setAttribute(MyToken.UID, Integer.valueOf(userId));

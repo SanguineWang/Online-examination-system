@@ -22,6 +22,8 @@ public class Exam {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    //考试名
+    private String name;
     // 开始时间
     private LocalDateTime startTime;
     // 结束时间

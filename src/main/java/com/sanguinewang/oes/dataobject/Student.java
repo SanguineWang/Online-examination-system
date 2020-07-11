@@ -29,6 +29,7 @@ public class Student {
     private User user;
     //一个学生对应多个考试
     @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Student_Exam> studentExams;
 
     //个人答选择题记录

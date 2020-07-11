@@ -28,6 +28,7 @@ public class Judgment {
      * 对：0
      * 错：1
      */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer answer;
     //分数
     private Float score;
@@ -45,5 +46,6 @@ public class Judgment {
      */
     @ManyToOne
     @ToString.Exclude
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Exam exam;
 }

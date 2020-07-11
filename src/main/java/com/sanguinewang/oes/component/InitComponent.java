@@ -2,6 +2,7 @@ package com.sanguinewang.oes.component;
 
 import com.sanguinewang.oes.dataobject.Administrator;
 import com.sanguinewang.oes.dataobject.Student;
+import com.sanguinewang.oes.dataobject.Teacher;
 import com.sanguinewang.oes.dataobject.User;
 import com.sanguinewang.oes.enums.RoleEnums;
 import com.sanguinewang.oes.services.UserService;
@@ -57,6 +58,19 @@ public class InitComponent implements InitializingBean {
             Student student = new Student();
             student.setUser(newStuUser);
             userService.addStudent(newStuUser, student);
+        }
+
+        int teacher_num = 3001;
+        User teacher_user = userService.findUserbyNumber(teacher_num);
+        if (teacher_user == null) {
+            User newStuUser = new User();
+            newStuUser.setName("Default_teacher");
+            newStuUser.setNumber(teacher_num);
+            newStuUser.setRole(RoleEnums.TEACHER);
+            newStuUser.setPassword(encoder.encode(String.valueOf(teacher_num)));
+            Teacher teacher = new Teacher();
+            teacher.setUser(newStuUser);
+            userService.addTeacher(newStuUser, teacher);
         }
     }
 }

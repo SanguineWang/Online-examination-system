@@ -20,12 +20,9 @@ public class Student_Judgment {
     //学生信息
     @ManyToOne
     private Student student;
-
     //题目
     @ManyToOne
-    private Choice choice;
-
-
+    private Judgment judgment;
     //学生的答案
     private Integer answer;
     //系统判断的，学生的分数

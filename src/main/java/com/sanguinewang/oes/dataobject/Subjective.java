@@ -23,6 +23,7 @@ public class Subjective {
     //题目
     private String title;
     //答案
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String answer;
     //分数
     private Float score;
@@ -40,6 +41,7 @@ public class Subjective {
      */
     @ManyToOne
     @ToString.Exclude
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Exam exam;
 
 }

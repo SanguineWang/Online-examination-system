@@ -23,6 +23,12 @@
 * Software
     * Docker :penguin:
 ### :bookmark_tabs: Change Log 
+
+### 2020-07-11
+author:tan
+
+* Student模块完成 另附StudentController API文档
+
 ### 2020-07-07 
 author: wang
 * Controller接口设计

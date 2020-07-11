@@ -64,7 +64,7 @@ public class UserService {
         studentRepository.save(student);
     }
 
-    public void addTeacher(Teacher teacher) {
+    public void addTeacher(User user1, Teacher teacher) {
         teacherRepository.save(teacher);
     }
 
