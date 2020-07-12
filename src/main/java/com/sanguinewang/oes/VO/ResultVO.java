@@ -14,5 +14,4 @@ public class ResultVO<T> {
 
     private T data;
 
-
 }

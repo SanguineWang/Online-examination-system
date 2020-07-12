@@ -1,4 +1,4 @@
-package com.sanguinewang.oes.services;
+package com.sanguinewang.oes.service;
 
 import com.sanguinewang.oes.dataobject.Administrator;
 import com.sanguinewang.oes.dataobject.Student;
@@ -8,9 +8,15 @@ import com.sanguinewang.oes.repository.AdministratorRepository;
 import com.sanguinewang.oes.repository.StudentRepository;
 import com.sanguinewang.oes.repository.TeacherRepository;
 import com.sanguinewang.oes.repository.UserRepository;
+import com.sanguinewang.oes.util.ResultVOUtil;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Map;
 
 /**
  * Description: oes
@@ -36,24 +42,42 @@ public class UserService {
         this.teacherRepository = teacherRepository;
     }
 
+    /**
+     * 查询个人信息
+     *
+     * @param userId
+     * @return
+     */
+    public User findUserById(Integer userId) {
+        return userRepository.findById(userId).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "当前用户不存在"));
+    }
+
+
+    /**
+     * 修改个人信息
+     *
+     * @param u
+     * @return
+     */
+    public User updateUser(User u) {
+        User user = userRepository.findById(u.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "当前用户不存在"));
+        user.setName(u.getName());
+        return userRepository.saveAndFlush(user);
+    }
+
     public User findByUsername(User user) {
         return userRepository.findByName(user.getName()).orElse(null);
 //        return userRepository.findByUsername(user.getUsername());
     }
 
-    public User findUserById(Integer userId) {
-        return userRepository.findById(userId).orElse(null);
-//        return userMapper.findUserById(userId);
-    }
+
 
     public User findUserbyNumber(int userNum) {
         return userRepository.findByNumber(userNum).orElse(null);
     }
 
-    public void addAdministrator(User u, Administrator t) {
-//        直接用级联 不用再多一层save保存
-//     userRepository.save(u);
-//     t.setUser(u);
+    public void addAdministrator(Administrator t) {
+
         administratorRepository.save(t);
     }
 

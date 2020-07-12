@@ -5,7 +5,7 @@ import com.sanguinewang.oes.dataobject.Student;
 import com.sanguinewang.oes.dataobject.Teacher;
 import com.sanguinewang.oes.dataobject.User;
 import com.sanguinewang.oes.enums.RoleEnums;
-import com.sanguinewang.oes.services.UserService;
+import com.sanguinewang.oes.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class InitComponent implements InitializingBean {
 
             Administrator admin = new Administrator();
             admin.setUser(newUser);
-            userService.addAdministrator(newUser, admin);
+            userService.addAdministrator( admin);
         }
 
         int stu_num = 2007;

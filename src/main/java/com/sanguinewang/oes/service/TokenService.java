@@ -1,4 +1,4 @@
-package com.sanguinewang.oes.services;
+package com.sanguinewang.oes.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

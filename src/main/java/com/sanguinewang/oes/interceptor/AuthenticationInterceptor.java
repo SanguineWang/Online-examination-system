@@ -10,7 +10,7 @@ import com.sanguinewang.oes.annotation.UserLoginToken;
 import com.sanguinewang.oes.component.MyToken;
 import com.sanguinewang.oes.dataobject.User;
 import com.sanguinewang.oes.enums.RoleEnums;
-import com.sanguinewang.oes.services.UserService;
+import com.sanguinewang.oes.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

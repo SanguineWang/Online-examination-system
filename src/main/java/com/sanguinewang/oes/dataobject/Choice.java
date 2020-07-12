@@ -36,7 +36,7 @@ public class Choice {
      * C:4
      * D:8
      */
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer answer;
     //分数，老师新建exam的时候设置题目的分数。
     private Float score;

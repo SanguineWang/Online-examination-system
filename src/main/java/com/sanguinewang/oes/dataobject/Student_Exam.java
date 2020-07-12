@@ -23,12 +23,11 @@ public class Student_Exam {
     //学生
     @ManyToOne
     @ToString.Exclude
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Student student;
     //考试
     @ManyToOne
     @ToString.Exclude
-    @JsonProperty()
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Exam exam;
 
     private boolean submit = false;

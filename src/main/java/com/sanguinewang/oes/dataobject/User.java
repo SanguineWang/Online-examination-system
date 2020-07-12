@@ -21,7 +21,7 @@ public class User {
      * User 数据库内部数据表Id
      */
     @Id
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 

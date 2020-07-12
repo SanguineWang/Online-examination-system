@@ -34,12 +34,15 @@ public class Student {
 
     //个人答选择题记录
     @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Student_Choice> student_choiceList;
     //个人判断题记录
     @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Student_Judgment> student_judgmentList;
     //个人主观题记录
     @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Student_Subjective> student_subjectiveList;
 
 

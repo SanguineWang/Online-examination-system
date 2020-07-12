@@ -1,0 +1,63 @@
+POST http://localhost:8080/api/students/exam/1
+authorization: {{token1}}
+Content-Type: application/json
+
+{
+  "choiceList": [
+    {
+      "id": 9,
+      "answer": 2
+    },
+    {
+      "id": 10,
+      "answer": 2
+    }
+  ],
+  "judgmentList": [
+    {
+      "id": 9,
+      "answer": 0
+    },
+    {
+      "id": 10,
+      "answer": 1
+    }
+  ],
+  "subjectiveList": [
+    {
+      "id": 9,
+      "answer": "我的答案"
+    },
+    {
+      "id": 10,
+      "answer": "我的答案"
+    }
+  ]
+}
+
+###
+
+GET http://localhost:8080/api/students/exam/1
+authorization: {{token1}}
+Accept: application/json
+
+###
+
+
+GET http://localhost:8080/api/students/exam
+authorization: {{token1}}
+Accept: application/json
+
+###
+
+
+POST http://localhost:8080/api/login
+Content-Type: application/json
+
+{
+  "number": "2001",
+  "password": "1234"
+}
+> {% client.global.set("token1",response.headers.valueOf("authorization")); %}
+
+###

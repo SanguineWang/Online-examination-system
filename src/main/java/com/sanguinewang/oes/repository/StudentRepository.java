@@ -3,6 +3,7 @@ package com.sanguinewang.oes.repository;
 import com.sanguinewang.oes.dataobject.Exam;
 import com.sanguinewang.oes.dataobject.Student;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
@@ -27,4 +28,13 @@ public interface StudentRepository extends BaseReporsitory<Student, Integer> {
      */
     @Query("from Exam e where e.id =  :examId and  :time between e.startTime and e.endTime")
     Optional<Exam> findExamByExamIdAndTime(Integer examId, LocalDateTime time);
+
+
+    /**根据账号查学生
+     * @param number 账号
+     * @return
+     */
+    @Query("from Student s where s.user.number= :number")
+    Student findbyNumber(@Param("number") Integer number);
+
 }

@@ -33,7 +33,6 @@ public class Teacher {
     @MapsId
     private User user;
 
-
     /**
      * 老师的考试，一个老师多个考试
      */

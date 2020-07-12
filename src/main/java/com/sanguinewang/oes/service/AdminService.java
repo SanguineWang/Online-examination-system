@@ -1,4 +1,4 @@
-package com.sanguinewang.oes.services;
+package com.sanguinewang.oes.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

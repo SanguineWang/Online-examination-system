@@ -1,6 +1,7 @@
-package com.sanguinewang.oes.services;
+package com.sanguinewang.oes.service;
 
 import com.sanguinewang.oes.dataobject.Student;
+import com.sanguinewang.oes.service.StudentService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ class StudentServiceTest {
 
 
     @Autowired
-    StudentService studentService;
+    private StudentService studentService;
 
     @Test
     void findStudentInfoByUid() {

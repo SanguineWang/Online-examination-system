@@ -11,7 +11,7 @@ import com.sanguinewang.oes.dataobject.Exam;
 import com.sanguinewang.oes.dataobject.Student;
 import com.sanguinewang.oes.dataobject.Student_Exam;
 import com.sanguinewang.oes.enums.RoleEnums;
-import com.sanguinewang.oes.services.StudentService;
+import com.sanguinewang.oes.service.StudentService;
 import com.sanguinewang.oes.util.ResultVOUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -37,9 +37,9 @@ import java.util.stream.Collectors;
 public class StudentController {
 
     @Autowired
-    RequestComponent requestComponent;
+    private RequestComponent requestComponent;
     @Autowired
-    StudentService studentService;
+    private StudentService studentService;
 
     @ApiOperation("查询个人信息")
     @UserLoginToken

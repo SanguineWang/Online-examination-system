@@ -38,10 +38,4 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 
 
-//    @Bean
-//    public AuthenticationInterceptor authenticationInterceptor() {
-//
-//        return new AuthenticationInterceptor();
-//    }
-
 }

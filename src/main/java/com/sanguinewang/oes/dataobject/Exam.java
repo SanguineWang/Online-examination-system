@@ -31,10 +31,14 @@ public class Exam {
     // 属于的老师 多个考试可以对应一个老师
     @ManyToOne
     @ToString.Exclude
+//    只允许反序列化
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Teacher teacher;
 
     //考试的学生
     @OneToMany(mappedBy = "exam", cascade = CascadeType.REMOVE)
+//    只反序列化
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Student_Exam> studentExams;
 
     //选择题列表 一个考试对应多个选择题
@@ -48,7 +52,6 @@ public class Exam {
     @ToString.Exclude
     private List<Judgment> judgmentList;
 
-
     //主观题列表 一个考试对应多个主观题
     @OneToMany(mappedBy = "exam", cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -58,7 +61,6 @@ public class Exam {
     /**
      * 自动插入时间
      */
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(columnDefinition = "timestamp default current_timestamp",
             insertable = false,
             updatable = false)

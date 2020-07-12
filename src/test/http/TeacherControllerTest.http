@@ -1,0 +1,172 @@
+GET  http://localhost:8080/api/teacher/exam/1/grade
+authorization: {{token2}}
+Accept: application/json
+
+###
+PATCH http://localhost:8080/api/teacher/exam/1/student/4
+authorization: {{token2}}
+Content-Type: application/json
+
+
+[
+  {
+    "id": 1,
+    "score" : 5
+  },
+  {
+    "id": 2,
+    "score" : 5
+  }
+]
+
+
+###
+
+GET http://localhost:8080/api/teacher/exam/1/student/4
+authorization: {{token2}}
+Accept: application/json
+
+###
+POST http://localhost:8080/api/teacher/exam/1/paper
+Content-Type: application/json
+authorization: {{token2}}
+
+{
+  "choiceList": [
+    {
+      "title": "选择题描述1",
+      "option_A": "选项A",
+      "option_B": "选项B",
+      "option_C": "选项C",
+      "option_D": "选项D",
+      "answer" : 2,
+      "score": 2
+    },
+    {
+      "title": "选择题描述2",
+      "option_A": "选项A",
+      "option_B": "选项B",
+      "option_C": "选项C",
+      "option_D": "选项D",
+      "answer" : 2,
+      "score": 2
+    }
+  ],
+  "judgmentList": [
+    {
+      "title": "判断题描述2",
+      "answer" : 0,
+      "score": 2
+    },
+    {
+      "title": "判断题描述3",
+      "answer" : 1,
+      "score": 2
+    }
+  ],
+  "subjectiveList": [
+    {
+      "title": "主观题描述1",
+      "answer" : "参考答案",
+      "score": 5
+    },
+    {
+      "title": "主观题描述2",
+      "answer" : "参考答案",
+      "score": 5
+    }
+  ]
+}
+
+###
+
+POST http://localhost:8080/api/teacher/exam/1/students
+Content-Type: application/json
+authorization: {{token2}}
+
+[
+  {
+    "user": {
+      "number": 2001,
+      "name": "2001",
+      "password": 2001
+    }
+  },
+  {
+    "user": {
+      "number": 2002,
+      "name": "2002",
+      "password": 2002
+    }
+  }
+]
+
+###
+GET http://localhost:8080/api/teacher/exam/1
+authorization: {{token2}}
+Accept: application/json
+
+###
+PATCH http://localhost:8080/api/teacher/exam/1
+Content-Type: application/json
+authorization: {{token2}}
+
+{
+  "name": "前端",
+  "startTime": "2020-07-12T10:00:00",
+  "endTime": "2020-07-13T12:00:00"
+}
+
+###
+DELETE http://localhost:8080/api/teacher/exam/3
+authorization: {{token2}}
+Accept: application/json
+
+###
+POST http://localhost:8080/api/teacher/exam
+Content-Type: application/json
+authorization: {{token2}}
+
+{
+  "name": "前端2",
+  "startTime": "2020-07-12T11:00:00",
+  "endTime": "2020-07-12T12:00:00"
+}
+
+###
+GET http://localhost:8080/api/teacher/exam
+authorization: {{token2}}
+Accept: application/json
+
+###
+PATCH http://localhost:8080/api/teacher/myInfo
+authorization: {{token2}}
+Content-Type: application/json
+
+{
+  "id": 3,
+  "name": "teacher01",
+  "number": 3001
+}
+
+###
+GET http://localhost:8080/api/teacher/myInfo
+authorization: {{token2}}
+Accept: application/json
+
+###
+POST http://localhost:8080/api/login
+Content-Type: application/json
+
+{
+  "number": "3001",
+  "password": "3001"
+}
+> {% client.global.set("token2",response.headers.valueOf("authorization")); %}
+
+###
+GET http://localhost:8080/api/loginTest
+authorization: {{token2}}
+Accept: application/json
+
+###

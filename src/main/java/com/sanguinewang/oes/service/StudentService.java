@@ -1,4 +1,4 @@
-package com.sanguinewang.oes.services;
+package com.sanguinewang.oes.service;
 
 import com.sanguinewang.oes.component.RequestComponent;
 import com.sanguinewang.oes.dataobject.*;
@@ -17,7 +17,7 @@ import java.util.Optional;
 
 /**
  * @Description
- * @Author SanguineWang
+ * @Author Tan
  * @Date 2020-07-07 8:05
  */
 @Service("StudentService")
@@ -60,10 +60,10 @@ public class StudentService {
      */
     public Boolean VerifyJoinability(Integer examId, Integer uid) {
         Exam exam = studentRepository.findExamByExamIdAndTime(examId, LocalDateTime.now())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "当前考试不存在或不可用"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "当前考试不存在或时间不符合"));
         Student_Exam student_exam = student_examRepository.findExamByStudentUidAndExamId(uid, examId)
-                .filter(e -> e.isSubmit() != true)//过滤当前考试是否已经提交
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "当前考试不存在或不可用"));
+                .filter(e -> !e.isSubmit())//过滤当前考试是否已经提交
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "当前考试不存在或已提交"));
         if (exam != null && student_exam != null) {
             return true;
         } else {

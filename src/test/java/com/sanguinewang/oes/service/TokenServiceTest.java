@@ -1,8 +1,6 @@
-package com.sanguinewang.oes.services;
+package com.sanguinewang.oes.service;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class TokenServiceTest {
 
