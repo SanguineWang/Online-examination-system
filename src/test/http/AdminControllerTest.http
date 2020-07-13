@@ -1,4 +1,4 @@
-DELETE http://localhost:8080/api/admin/user/5
+DELETE http://localhost:8080/api/admin/user/52
 authorization: {{token3}}
 Accept: application/json
 
@@ -19,3 +19,77 @@ Content-Type: application/json
 > {% client.global.set("token3",response.headers.valueOf("authorization")); %}
 
 ###
+
+PATCH http://localhost:8080/api/admin/user/3
+Content-Type: application/json
+authorization: {{token3}}
+
+
+  {
+    "id": 3,
+    "name": "花花呀",
+    "number": 1990,
+    "role": "ADMINISTRATOR",
+    "insertTime": "2020-07-10T16:14:32"
+  }
+
+
+
+###
+
+###
+
+POST http://localhost:8080/api/admin/user/teacher
+authorization: {{token3}}
+Content-Type: application/json
+
+{
+  "number": 1990,
+  "name": "花花呀",
+  "password": "1990"
+}
+
+
+###
+
+POST http://localhost:8080/api/admin/user/admin
+authorization: {{token3}}
+Accept: application/json
+
+###
+
+GET http://localhost:8080/api/admin/student
+authorization: {{token3}}
+Accept: application/json
+
+####
+
+GET http://localhost:8080/api/admin/role/student
+authorization: {{token3}}
+Accept: application/json
+
+####
+
+GET http://localhost:8080/api/admin/onlineExamList
+authorization: {{token3}}
+Accept: application/json
+
+####
+
+GET http://localhost:8080/api/admin/onlineExamId/1
+authorization: {{token3}}
+Accept: application/json
+
+####
+
+GET http://localhost:8080/api/admin/userName
+authorization: {{token3}}
+Accept: application/json
+
+####
+
+GET http://localhost:8080/api/admin/role/ADMINISTRATOR
+authorization: {{token3}}
+Accept: application/json
+
+####
