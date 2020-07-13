@@ -10,8 +10,7 @@ import java.util.Arrays;
 public enum RoleEnums {
     STUDENT(1, "学生"),
     TEACHER(2, "教师"),
-    ADMINISTRATOR(0, "管理员");
-
+    ADMINISTRATOR(3, "管理员");
 
 
     private Integer code;

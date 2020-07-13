@@ -2,7 +2,6 @@ package com.sanguinewang.oes.interceptor;
 
 import com.sanguinewang.oes.component.RequestComponent;
 import com.sanguinewang.oes.enums.RoleEnums;
-import com.sanguinewang.oes.util.ResultVOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;

@@ -34,4 +34,6 @@ public interface Student_ExamRepository extends BaseReporsitory<Student_Exam, In
     @Query("delete from Student_Exam se where se.exam.id =:eid")
     void removeByExamId(@Param("eid") Integer eid);
 
+    @Query("from Student_Exam se where se.exam.id=:id")
+    List<Student_Exam> findStudent_ExamByExamId(int id);
 }

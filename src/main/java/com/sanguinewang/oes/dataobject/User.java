@@ -45,7 +45,7 @@ public class User {
     /**
      * 用户角色 （teacher student admin）
      */
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private RoleEnums role;
 
     /**

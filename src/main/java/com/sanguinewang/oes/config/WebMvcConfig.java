@@ -1,5 +1,6 @@
 package com.sanguinewang.oes.config;
 
+import com.sanguinewang.oes.interceptor.AdminInterceptor;
 import com.sanguinewang.oes.interceptor.AuthenticationInterceptor;
 import com.sanguinewang.oes.interceptor.StudentInterceptor;
 import com.sanguinewang.oes.interceptor.TeacherInterceptor;
@@ -23,7 +24,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     private TeacherInterceptor teacherInterceptor;
     @Autowired
     private StudentInterceptor studentInterceptor;
-
+    @Autowired
+    private AdminInterceptor adminInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -34,6 +36,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/api/teachers/**");
         registry.addInterceptor(studentInterceptor)
                 .addPathPatterns("/api/students/**");
+        registry.addInterceptor(adminInterceptor)
+                .addPathPatterns("/api/admin/**");
     }
 
 
