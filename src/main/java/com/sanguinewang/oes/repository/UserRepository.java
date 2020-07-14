@@ -13,6 +13,9 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends BaseReporsitory<User, Integer> {
 
+    @Query("from User u where u.name like CONCAT('%',:name,'%') ")
+    List<User> findByNumberLike(String name);
+
     @Query("from User u where u.name = :name")
     Optional<User> findByName(String name);
 

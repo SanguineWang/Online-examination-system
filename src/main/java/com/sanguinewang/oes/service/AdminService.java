@@ -110,11 +110,9 @@ public class AdminService {
         return userRepository.findByRole(role);
     }
 
-    //按账号查询用户
-    public User selectUserByNum(Integer num) {
-        if (getUserByNum(num) != null)
-            return getUserByNum(num);
-        else
-            return null;
+    //按姓名模糊查询用户
+    public List<User> selectUserByNum(String name) {
+       return userRepository.findByNumberLike(name);
+
     }
 }

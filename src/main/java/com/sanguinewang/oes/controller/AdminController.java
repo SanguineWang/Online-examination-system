@@ -8,11 +8,14 @@ import com.sanguinewang.oes.service.AdminService;
 import com.sanguinewang.oes.service.UserService;
 import com.sanguinewang.oes.util.ResultVOUtil;
 import io.swagger.annotations.ApiOperation;
+import javassist.expr.NewArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,17 +35,32 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
-    @ApiOperation("进入在线考试后台,查看学生答题情况")
-    @GetMapping("background")
+    @ApiOperation("进入在线考试后台,查看在线考试列表")
+    @GetMapping("onlineExamList")
     @UserLoginToken
     public ResultVO getBackgroundList(){
+        if(adminService.getExam()==null)
+            ResultVOUtil.error(HttpStatus.NOT_FOUND, "无进行中考试");
+            return ResultVOUtil.success(
+                    Map.of("examList", adminService.getExam())
+                    , "进入后台成功");
+    }
+
+    @ApiOperation("进入在线考试后台,查看学生交卷情况")
+    @GetMapping("onlineExamId/{examId}")
+    @UserLoginToken
+    public ResultVO getOnlineStudent(@PathVariable Integer examId){
+        //adminService.getStudent(examId);
+        if(adminService.getStudent(examId)==null)
+            ResultVOUtil.error(HttpStatus.NOT_FOUND,"无学生进行考试这场考试");
+
         return ResultVOUtil.success(
-                Map.of("examList", List.of(new Exam()))
-                , "进入后台成功");
+                    Map.of("studentList",adminService.getStudent(examId) )
+                    , "查看学生列表成功");
     }
 
     @ApiOperation("获取用户信息列表")
-    @GetMapping("user")
+    @GetMapping("users")
     @UserLoginToken
     public ResultVO getUserList(){
         return ResultVOUtil.success(
@@ -52,7 +70,7 @@ public class AdminController {
     @ApiOperation("修改用户信息")
     @PatchMapping("user/{uid}")
     @UserLoginToken
-    public ResultVO updateUser(@PathVariable int uid, @RequestBody User user){
+    public ResultVO updateUser(@RequestBody User user,@PathVariable Integer uid){
 
         return ResultVOUtil.success(
                 Map.of("userInfo", adminService.modifyUser(uid, user.getNumber(),user.getName(),user.getRole()))
@@ -81,7 +99,6 @@ public class AdminController {
             user.setPassword(passwordEncoder.encode(password));
         user.setRole(RoleEnums.TEACHER);
         teacher.setUser(user);
-        //administrator.setId(admin.getId());
         userService.addTeacher(user,teacher);
         return ResultVOUtil.success(
                 Map.of("myInfo", teacher)
@@ -101,7 +118,6 @@ public class AdminController {
             user.setPassword(passwordEncoder.encode(password));
         user.setRole(RoleEnums.STUDENT);
         student.setUser(user);
-        //administrator.setId(admin.getId());
         userService.addStudent(user,student);
         return ResultVOUtil.success(
                 Map.of("myInfo", student)
@@ -121,7 +137,6 @@ public class AdminController {
             user.setPassword(passwordEncoder.encode(password));
         user.setRole(RoleEnums.ADMINISTRATOR);
         administrator.setUser(user);
-        //administrator.setId(admin.getId());
         userService.addAdministrator(administrator);
         return ResultVOUtil.success(
                 Map.of("myInfo", administrator)
@@ -136,18 +151,25 @@ public class AdminController {
                 Map.of("myInfo",adminService.selectUserByCode(role) )
                 , "查询用户成功");
     }
-    @ApiOperation("按账号查询用户")
-    @GetMapping("number/{number}")
+    /*
+    * 模糊查询
+    * */
+    @ApiOperation("按姓名查询用户")
+    @GetMapping("userName")
     @UserLoginToken
-    public ResultVO selectUserByNum(@PathVariable Integer number){
+    @ResponseBody
+    public ResultVO selectUserByNum(HttpServletRequest req){
 
-        User user = adminService.selectUserByNum(number);
-        if(user ==null)
+        String likeName = req.getParameter("name");
+        List<User> list = null;
+        //这里需要用到模糊查询的通配符
+        list = adminService.selectUserByNum("%"+likeName+"%");
+        if(list ==null)
             ResultVOUtil.error(HttpStatus.NOT_FOUND,"查无此人");
 
         return ResultVOUtil.success(
-                Map.of("myInfo", user)
-                , "查询用户成功");
+                Map.of("myInfo", list)
+                , "模糊查询用户成功");
     }
 
 }
