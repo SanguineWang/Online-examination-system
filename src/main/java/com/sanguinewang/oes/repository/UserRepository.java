@@ -21,11 +21,8 @@ public interface UserRepository extends BaseReporsitory<User, Integer> {
 
     @Query("from User u where u.id=:id")
     Optional<User> findById(int id);
-
-    @Modifying
-    @Transactional
-    @Query("delete from User u  where u.number=:num")
-    void deleteByNumber( Integer num);
+//    @Query("from User u where u.number like %:number )
+//    List<User> findByNumber(Integer numer );
 
     @Query("from User u where u.role=:role")
     List<User> findByRole(RoleEnums role);

@@ -78,7 +78,12 @@ public class StudentService {
 
 
     public void submitExam(Integer examId, Integer uid) {
-        student_examRepository.updateStudent_ExamSubmitStatus(uid, examId);
+
+        Student_Exam student_exam = student_examRepository.findExamByStudentUidAndExamId(uid, examId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "当前学生-考试不存在"));
+        student_exam.setSubmit(true);
+        student_examRepository.save(student_exam);
+//        student_examRepository.updateStudent_ExamSubmitStatus(uid, examId);
     }
 
     /**
