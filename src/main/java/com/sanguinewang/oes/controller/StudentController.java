@@ -79,7 +79,7 @@ public class StudentController {
         Student studentFromDB = studentService.findStudentByUid(uid);
         List<Student_Exam> studentExams = studentFromDB.getStudentExams();
         List<ExamVO> list = studentExams.stream().map(studentExam -> new ExamVO(
-                studentExam.getId(),//考试id
+                studentExam.getExam().getId(),//exam id
                 studentExam.getExam().getName(),//考试名称
                 studentExam.getExam().getStartTime(),//开始时间
                 studentExam.getExam().getEndTime(),//结束时间
