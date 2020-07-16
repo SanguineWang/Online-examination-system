@@ -15,9 +15,9 @@ class StudentServiceTest {
     @Autowired
     private StudentService studentService;
 
-    @Test
-    void findStudentInfoByUid() {
-        Student studentInfoByUid = studentService.findStudentByUid(2);
-        log.info("{}", studentInfoByUid.getUser().getName());
-    }
+//    @Test
+//    void findStudentInfoByUid() {
+//        Student studentInfoByUid = studentService.findStudentByUid(2);
+//        log.info("{}", studentInfoByUid.getUser().getName());
+//    }
 }

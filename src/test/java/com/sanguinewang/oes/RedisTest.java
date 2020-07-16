@@ -16,15 +16,15 @@ import java.util.Map;
  */
 @SpringBootTest
 public class RedisTest {
-    @Autowired
-    RedisTemplate redisTemplate;
-    @Test
-    public void redisTest(){
-        User user = new User();
-        user.setName("wang");
-        user.setNumber(1234);
-        redisTemplate.opsForValue().set("1", user);
-        System.out.println(redisTemplate.opsForValue().get("1"));
-
-    }
+//    @Autowired
+//    RedisTemplate redisTemplate;
+//    @Test
+//    public void redisTest(){
+//        User user = new User();
+//        user.setName("wang");
+//        user.setNumber(1234);
+//        redisTemplate.opsForValue().set("1", user);
+//        System.out.println(redisTemplate.opsForValue().get("1"));
+//
+//    }
 }

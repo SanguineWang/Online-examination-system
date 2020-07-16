@@ -1,10 +1,3 @@
-DELETE http://localhost:8080/api/admin/students/49
-authorization: {{token3}}
-Accept: application/json
-
-###
-
-####
 POST http://localhost:8080/api/login
 Content-Type: application/json
 
@@ -15,6 +8,58 @@ Content-Type: application/json
 > {% client.global.set("token3",response.headers.valueOf("authorization")); %}
 
 ###
+GET http://localhost:8080/api/admin/students
+authorization: {{token3}}
+Accept: application/json
+
+####
+
+GET http://localhost:8080/api/admin/teachers
+authorization: {{token3}}
+Accept: application/json
+
+####
+
+POST http://localhost:8080/api/admin/students
+authorization: {{token3}}
+Content-Type: application/json
+
+{
+  "user": {
+    "number": 2001,
+    "name": "2001",
+    "role": "STUDENT"
+  }
+}
+
+####
+
+POST http://localhost:8080/api/admin/teachers
+authorization: {{token3}}
+Content-Type: application/json
+
+{
+  "user": {
+    "number": 3002,
+    "name": "3002",
+    "role": "TEACHER"
+  }
+}
+
+####
+
+
+DELETE http://localhost:8080/api/admin/teachers/49
+authorization: {{token3}}
+Accept: application/json
+
+###
+DELETE http://localhost:8080/api/admin/students/4
+authorization: {{token3}}
+Accept: application/json
+
+###
+
 
 PATCH http://localhost:8080/api/admin/user/3
 Content-Type: application/json

@@ -10,16 +10,16 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @Slf4j
 class RequestComponentTest {
-
-    @Autowired
-    RequestComponent requestComponent;
-
-    @Test
-    void getUid() {
-        requestComponent.getUid();
-    }
-
-    @Test
-    void getRole() {
-    }
+//
+//    @Autowired
+//    RequestComponent requestComponent;
+//
+//    @Test
+//    void getUid() {
+//        requestComponent.getUid();
+//    }
+//
+//    @Test
+//    void getRole() {
+//    }
 }

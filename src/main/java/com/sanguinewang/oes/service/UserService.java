@@ -81,14 +81,19 @@ public class UserService {
         administratorRepository.save(t);
     }
 
-    public void addStudent(User user1, Student student) {
-//        直接用级联 不用再多一层save保存
-//     userRepository.save(u);
-//     t.setUser(u);
+    public void addStudent(Student student) {
+      if (userRepository.findByNumber(student.getUser().getNumber()).isPresent()){
+          throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                  "用户已存在");
+      }
         studentRepository.save(student);
     }
 
-    public void addTeacher(User user1, Teacher teacher) {
+    public void addTeacher(Teacher teacher) {
+        if (userRepository.findByNumber(teacher.getUser().getNumber()).isPresent()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "用户已存在");
+        }
         teacherRepository.save(teacher);
     }
 

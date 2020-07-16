@@ -57,7 +57,7 @@ public class InitComponent implements InitializingBean {
             newStuUser.setPassword(encoder.encode(String.valueOf(stu_num)));
             Student student = new Student();
             student.setUser(newStuUser);
-            userService.addStudent(newStuUser, student);
+            userService.addStudent(student);
         }
 
         int teacher_num = 3001;
@@ -70,7 +70,7 @@ public class InitComponent implements InitializingBean {
             newStuUser.setPassword(encoder.encode(String.valueOf(teacher_num)));
             Teacher teacher = new Teacher();
             teacher.setUser(newStuUser);
-            userService.addTeacher(newStuUser, teacher);
+            userService.addTeacher( teacher);
         }
     }
 }

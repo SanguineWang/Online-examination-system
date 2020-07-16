@@ -15,22 +15,22 @@ class UserServiceTest {
     UserService userService;
 
 
-    @Test
-    void findByUsername() {
-        User user = new User();
-        user.setName("string");
-        User byUsername = userService.findByUsername(user);
-        Assertions.assertNotNull(byUsername);
-        log.info("{}", byUsername.getName());
-
-    }
-
-    @Test
-    void findUserById() {
-        User user = new User();
-        user.setId(1);
-        User userById = userService.findUserById(1);
-        Assertions.assertNotNull(userById);
-        log.info("{}", userById.getId());
-    }
+//    @Test
+//    void findByUsername() {
+//        User user = new User();
+//        user.setName("string");
+//        User byUsername = userService.findByUsername(user);
+//        Assertions.assertNotNull(byUsername);
+//        log.info("{}", byUsername.getName());
+//
+//    }
+//
+//    @Test
+//    void findUserById() {
+//        User user = new User();
+//        user.setId(1);
+//        User userById = userService.findUserById(1);
+//        Assertions.assertNotNull(userById);
+//        log.info("{}", userById.getId());
+//    }
 }
