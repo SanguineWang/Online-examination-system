@@ -5,31 +5,31 @@ Content-Type: application/json
 {
   "choiceList": [
     {
-      "id": 9,
+      "id": 3,
       "answer": 2
     },
     {
-      "id": 10,
+      "id": 4,
       "answer": 2
     }
   ],
   "judgmentList": [
     {
-      "id": 9,
+      "id": 3,
       "answer": 0
     },
     {
-      "id": 10,
+      "id": 4,
       "answer": 1
     }
   ],
   "subjectiveList": [
     {
-      "id": 9,
+      "id": 3,
       "answer": "我的答案"
     },
     {
-      "id": 10,
+      "id": 4,
       "answer": "我的答案"
     }
   ]
@@ -55,8 +55,8 @@ POST http://localhost:8080/api/login
 Content-Type: application/json
 
 {
-  "number": "2001",
-  "password": "1234"
+  "number": "2007",
+  "password": "2007"
 }
 > {% client.global.set("token1",response.headers.valueOf("authorization")); %}
 

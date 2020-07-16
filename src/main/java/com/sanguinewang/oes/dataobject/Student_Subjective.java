@@ -27,4 +27,5 @@ public class Student_Subjective {
     private String answer;
     //老师批改的，学生的分数
     private Float score;
+
 }

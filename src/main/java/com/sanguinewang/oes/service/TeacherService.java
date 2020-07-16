@@ -8,13 +8,17 @@ import com.sanguinewang.oes.util.ResultVOUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.SQLException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -73,7 +77,25 @@ public class TeacherService {
         user.setName(u.getName());
         return userRepository.saveAndFlush(user);
     }
+    /**
+     * 更新密码
+     *
+     * @param tid      teacherId
 
+     */
+    public void updatePassword(Integer tid, String oldPassword,String newPassword) {
+        if (oldPassword.equals(newPassword)){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"新密码不能与旧密码一致");
+        }
+        Teacher teacher = teacherRepository.findById(tid).get();
+        if (encoder.matches(oldPassword,teacher.getUser().getPassword())){
+
+            teacher.getUser().setPassword(encoder.encode(newPassword));
+            teacherRepository.save(teacher);
+        }else {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,"密码错误");
+        }
+    }
     /**
      * 查看考试列表
      *
@@ -164,9 +186,14 @@ public class TeacherService {
         Exam exam = examRepository.findById(eid).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,
                 "考试不存在"));
 //        清空之前的
-        choiceRepository.deleteByExamId(eid);
-        judgmentRepositry.deleteByExamId(eid);
-        subjectiveRepository.deleteByExamId(eid);
+        try{
+            choiceRepository.deleteByExamId(eid);
+            judgmentRepositry.deleteByExamId(eid);
+            subjectiveRepository.deleteByExamId(eid);
+        }catch (DataIntegrityViolationException e1){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"更新失败，考试已开始");
+        }
+
 //        导入新的
         for (Choice choice : e.getChoiceList()) {
             choice.setExam(exam);
@@ -310,7 +337,14 @@ public class TeacherService {
     public List<Student_Exam> getStudentExamList(Integer eid) {
         Exam exam = examRepository.findById(eid).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,
                 "考试不存在"));
-        return exam.getStudentExams() == null ? List.of(new Student_Exam()) : exam.getStudentExams();
+        List<Student_Exam> studentExams=exam.getStudentExams();
+        if(studentExams==null){
+            return List.of(new Student_Exam());
+        }else {
+            return studentExams = studentExams.stream()
+                    .filter(Student_Exam::isSubmit)
+                    .collect(Collectors.toList());
+        }
     }
 
 }

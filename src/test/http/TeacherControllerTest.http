@@ -22,7 +22,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8080/api/teacher/exam/1/student/4
+GET http://localhost:8080/api/teacher/exam/1/student/2
 authorization: {{token2}}
 Accept: application/json
 
@@ -34,7 +34,7 @@ authorization: {{token2}}
 {
   "choiceList": [
     {
-      "title": "选择题描述1",
+      "title": "选择题1",
       "option_A": "选项A",
       "option_B": "选项B",
       "option_C": "选项C",
@@ -87,7 +87,7 @@ authorization: {{token2}}
 [
   {
     "user": {
-      "number": 2001,
+      "number": 2007,
       "name": "2001",
       "password": 2001
     }
@@ -113,8 +113,8 @@ authorization: {{token2}}
 
 {
   "name": "前端",
-  "startTime": "2020-07-12T10:00:00",
-  "endTime": "2020-10-13T12:00:00"
+  "startTime": "2020-07-12T10:00",
+  "endTime": "2020-10-14T12:00"
 }
 
 ###

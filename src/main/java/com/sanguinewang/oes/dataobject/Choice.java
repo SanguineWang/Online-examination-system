@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @Description 选择题
@@ -53,8 +54,13 @@ public class Choice {
     /**
      * 题目与考试多对一关系
      */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @ToString.Exclude
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Exam exam;
+
+    //答题记录
+    @OneToMany(mappedBy = "choice", cascade = CascadeType.REMOVE)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<Student_Choice> student_choiceList;
 }

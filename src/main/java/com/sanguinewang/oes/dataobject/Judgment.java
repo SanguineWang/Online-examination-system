@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @Description 判断题
@@ -48,4 +49,8 @@ public class Judgment {
     @ToString.Exclude
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Exam exam;
+    //答题记录
+    @OneToMany(mappedBy = "judgment", cascade = CascadeType.REMOVE)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<Student_Judgment> student_judgmentList;
 }
