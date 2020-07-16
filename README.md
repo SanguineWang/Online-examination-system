@@ -17,7 +17,8 @@
     * 缓存： redis
 ### Deployment environment
 * Server
-    * 待定
+    * 114.115.181.66后端
+    * 
 * System
     * Linux  
 * Software

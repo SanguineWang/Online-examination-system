@@ -170,3 +170,14 @@ authorization: {{token2}}
 Accept: application/json
 
 ###
+
+POST http://114.115.181.66:8080/api/login
+Content-Type: application/json
+
+{
+  "number": "3001",
+  "password": "3001"
+}
+> {% client.global.set("token2",response.headers.valueOf("authorization")); %}
+
+###
