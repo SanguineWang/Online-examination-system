@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Description: oes
@@ -47,6 +48,7 @@ public class User {
      */
 //    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private RoleEnums role;
+
 
     /**
      * 自动插入时间

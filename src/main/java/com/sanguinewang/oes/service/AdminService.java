@@ -6,12 +6,14 @@ import com.sanguinewang.oes.dataobject.Student_Exam;
 import com.sanguinewang.oes.dataobject.User;
 import com.sanguinewang.oes.enums.RoleEnums;
 import com.sanguinewang.oes.repository.*;
+import javassist.expr.NewArray;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,10 +68,28 @@ public class AdminService {
         return userRepository.findByNumber(number).orElse(null);
     }
 
-    //返回用户列表
-    public List<User> getUserList() {
+    //返回学生列表
+    public List<User> getStudentList() {
+        List<User> students = new ArrayList<>();
 
-        return userRepository.list();
+        for (User s:userRepository.list()
+             ) {log.debug("{lalaalallala}", s.getRole());
+            if(s.getRole()==RoleEnums.STUDENT)
+            {students.add(s);}
+        }
+        return students;
+
+    }
+
+    //返回教师列表
+    public List<User> getTeacherList() {
+        List<User> teachers =new ArrayList<>();
+        for (User s:userRepository.list()
+        ) {
+            if(s.getRole()==RoleEnums.TEACHER)
+                teachers.add(s);
+        }
+        return teachers;
     }
 
     public User modifyUser(int uid, Integer number, String name, RoleEnums role) {

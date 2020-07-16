@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -36,5 +37,7 @@ public interface StudentRepository extends BaseReporsitory<Student, Integer> {
      */
     @Query("from Student s where s.user.number= :number")
     Student findbyNumber(@Param("number") Integer number);
+
+
 
 }

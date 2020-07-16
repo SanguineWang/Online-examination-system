@@ -4,7 +4,9 @@ import com.sanguinewang.oes.VO.ResultVO;
 import com.sanguinewang.oes.annotation.UserLoginToken;
 import com.sanguinewang.oes.dataobject.*;
 import com.sanguinewang.oes.enums.RoleEnums;
+import com.sanguinewang.oes.repository.StudentRepository;
 import com.sanguinewang.oes.service.AdminService;
+import com.sanguinewang.oes.service.StudentService;
 import com.sanguinewang.oes.service.UserService;
 import com.sanguinewang.oes.util.ResultVOUtil;
 import io.swagger.annotations.ApiOperation;
@@ -34,6 +36,8 @@ public class AdminController {
     PasswordEncoder passwordEncoder;
     @Autowired
     AdminService adminService;
+    @Autowired
+    StudentRepository studentRepository;
 
     @ApiOperation("进入在线考试后台,查看在线考试列表")
     @GetMapping("onlineExamList")
@@ -59,14 +63,29 @@ public class AdminController {
                     , "查看学生列表成功");
     }
 
-    @ApiOperation("获取用户信息列表")
-    @GetMapping("users")
+    @ApiOperation("获取学生信息列表")
+    @GetMapping("students")
     @UserLoginToken
-    public ResultVO getUserList(){
+    public ResultVO getStudentList(){
+        if(adminService.getStudentList()==null)
+            ResultVOUtil.error(HttpStatus.NOT_FOUND, "无学生");
+
         return ResultVOUtil.success(
-                Map.of("userList", adminService.getUserList())
-                , "获取用户列表成功");
+                Map.of("studentList", adminService.getStudentList())
+                , "获取学生列表成功");
     }
+
+    @ApiOperation("获取教师信息列表")
+    @GetMapping("teachers")
+    @UserLoginToken
+    public ResultVO getTeacherList(){
+        if(adminService.getTeacherList()==null)
+            ResultVOUtil.error(HttpStatus.NOT_FOUND, "无教师");
+        return ResultVOUtil.success(
+                Map.of("studentList", adminService.getTeacherList())
+                , "获取教师列表成功");
+    }
+
     @ApiOperation("修改用户信息")
     @PatchMapping("user/{uid}")
     @UserLoginToken
@@ -76,15 +95,26 @@ public class AdminController {
                 Map.of("userInfo", adminService.modifyUser(uid, user.getNumber(),user.getName(),user.getRole()))
                 , "修改用户信息成功");
     }
-    @ApiOperation("删除用户")
-    @DeleteMapping("user/{uid}")
+    @ApiOperation("删除学生")
+    @DeleteMapping("students/{uid}")
     @UserLoginToken
-    public ResultVO deleteUser(@PathVariable int uid){
+    public ResultVO deleteStudent(@PathVariable int uid){
          adminService.deleteUser(uid);
         return ResultVOUtil.success(
-                Map.of("myInfo",adminService.getUserList())
-                , "删除用户信息成功");
+                Map.of("myInfo",adminService.getStudentList())
+                , "删除学生信息成功");
     }
+
+    @ApiOperation("删除教师")
+    @DeleteMapping("teachers/{uid}")
+    @UserLoginToken
+    public ResultVO deleteTeacher(@PathVariable int uid){
+        adminService.deleteUser(uid);
+        return ResultVOUtil.success(
+                Map.of("myInfo",adminService.getTeacherList())
+                , "删除教师信息成功");
+    }
+
     @ApiOperation("添加教师")
     @PostMapping("user/teacher")
     @UserLoginToken
@@ -142,15 +172,6 @@ public class AdminController {
                 Map.of("myInfo", administrator)
                 , "添加用户成功");
     }
-    @ApiOperation("按角色查询用户")
-    @GetMapping("role/{role}")
-    @UserLoginToken
-    public ResultVO selectUserByRole(@PathVariable RoleEnums role){
-
-        return ResultVOUtil.success(
-                Map.of("myInfo",adminService.selectUserByCode(role) )
-                , "查询用户成功");
-    }
     /*
     * 模糊查询
     * */
@@ -168,7 +189,7 @@ public class AdminController {
             ResultVOUtil.error(HttpStatus.NOT_FOUND,"查无此人");
 
         return ResultVOUtil.success(
-                Map.of("myInfo", list)
+                Map.of("userList", list)
                 , "模糊查询用户成功");
     }
 

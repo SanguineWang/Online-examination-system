@@ -24,6 +24,8 @@ public class Student {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer id;
 
+
+
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @MapsId
     private User user;

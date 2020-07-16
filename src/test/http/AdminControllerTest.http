@@ -1,12 +1,8 @@
-DELETE http://localhost:8080/api/admin/user/52
+DELETE http://localhost:8080/api/admin/students/49
 authorization: {{token3}}
 Accept: application/json
 
 ###
-
-GET http://localhost:8080/api/admin/user
-authorization: {{token3}}
-Accept: application/json
 
 ####
 POST http://localhost:8080/api/login
@@ -64,7 +60,7 @@ Accept: application/json
 
 ####
 
-GET http://localhost:8080/api/admin/role/student
+GET http://localhost:8080/api/admin/role/STUDENT
 authorization: {{token3}}
 Accept: application/json
 
@@ -89,6 +85,18 @@ Accept: application/json
 ####
 
 GET http://localhost:8080/api/admin/role/ADMINISTRATOR
+authorization: {{token3}}
+Accept: application/json
+
+####
+
+GET http://localhost:8080/api/admin/students
+authorization: {{token3}}
+Accept: application/json
+
+####
+
+GET http://localhost:8080/api/admin/teachers
 authorization: {{token3}}
 Accept: application/json
 
