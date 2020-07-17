@@ -18,6 +18,9 @@ services:
     environment:
       TZ: Asia/Shanghai
       MYSQL_ROOT_PASSWORD: root
+    # 将容器端口映射到宿主机端口，可以声明也可以不声明，一般情况下不会将后端端口直接暴露出去
+    ports:
+      - "3306:3306"
 
   # Springboot服务
   oes-api:

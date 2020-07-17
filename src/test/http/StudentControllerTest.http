@@ -37,6 +37,24 @@ Content-Type: application/json
 
 ###
 
+GET http://114.115.181.66:8080/api/students/exam/1
+authorization: {{token1}}
+Accept: application/json
+
+###
+
+POST http://114.115.181.66:8080/api/login
+Content-Type: application/json
+
+{
+  "number": "2017214320",
+  "password": "1234"
+}
+> {% client.global.set("token1",response.headers.valueOf("authorization")); %}
+
+###
+
+###
 GET http://localhost:8080/api/students/exam/1
 authorization: {{token1}}
 Accept: application/json
@@ -55,8 +73,8 @@ POST http://localhost:8080/api/login
 Content-Type: application/json
 
 {
-  "number": "2007",
-  "password": "2007"
+  "number": "2017214320",
+  "password": "1234"
 }
 > {% client.global.set("token1",response.headers.valueOf("authorization")); %}
 

@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  # nginx服务
+  oes-nginx:
+    # 容器命名
+    container_name: oes-nginx
+    # 构建镜像
+    build:
+      context: .
+    networks:
+      - net_vue
+    # 映射端口 主机a->容器b 通过宿主机指定端口a访问容器内指定端口b
+    ports:
+      - "80:80"
+
+networks:
+  net_vue:
+    driver: bridge
+

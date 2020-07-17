@@ -176,8 +176,8 @@ Content-Type: application/json
 
 {
   "number": "3001",
-  "password": "3001"
+  "password": "1234"
 }
-> {% client.global.set("token2",response.headers.valueOf("authorization")); %}
+> {% client.global.set("token3",response.headers.valueOf("authorization")); %}
 
 ###

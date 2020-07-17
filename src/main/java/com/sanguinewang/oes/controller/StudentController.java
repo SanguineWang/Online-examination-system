@@ -83,6 +83,7 @@ public class StudentController {
                 studentExam.getExam().getName(),//考试名称
                 studentExam.getExam().getStartTime(),//开始时间
                 studentExam.getExam().getEndTime(),//结束时间
+                studentExam.isSubmit() ,     //是否提交
                 studentExam.getStudent().getUser().getName(),//考生姓名
                 studentExam.getExam().getTeacher().getUser().getName(),//教师姓名
                 studentExam.getExam().getTeacher().getUser().getNumber(),//教师number
@@ -153,6 +154,7 @@ public class StudentController {
                     studentExam.getExam().getName(),//考试名称
                     studentExam.getExam().getStartTime(),//开始时间
                     studentExam.getExam().getEndTime(),//结束时间
+                    studentExam.isSubmit() ,     //是否提交
                     studentExam.getStudent().getUser().getName(),//考生姓名
                     studentExam.getExam().getTeacher().getUser().getName(),//教师姓名
                     studentExam.getExam().getTeacher().getUser().getNumber(),//教师number
